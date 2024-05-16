@@ -365,7 +365,7 @@ class Navbar extends HTMLElement {
                 });
                 el.classList.add("third-panel__tab_active");
             };
-            if (index == 1) {
+            if (index == 13) {
                 el.classList.add("third-panel__tab_active");
             }
         });

@@ -1,7 +1,7 @@
 class MobileControlMini extends HTMLElement {
     constructor() {
         super();
-        this.active = 1;
+        this.active = 13;
     }
     connectedCallback() {
         this.render();
