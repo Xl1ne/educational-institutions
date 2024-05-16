@@ -1,41 +1,57 @@
 class Navbar extends HTMLElement {
-    connectedCallback() {
-        this.render();
-        this.setup();
-    }
-    THRID_PANEL_TABS = [
-        ["объявления", ""],
-        ["вакансии", ""],
-        ["вакансии объед", ""],
-        ["соискатели", ""],
-        ["отклики", ""],
-        ["фио", ""],
-        ["Адреса", ""],
-        ["Компании", ""],
-        ["Учебные заведения", ""],
-        ["Сокр.Ю.Ф.", ""],
-        ["Альтернативные", ""],
-        ["Филиалы", ""],
-        ["Квалификации Специальности", ""],
-        ["ПОИСК", ""],
-        ["Телефонные коды", ""],
-        ["Администраторы", ""],
-        ["email рассылка", ""],
-        ["КАК БЫЛО КАК НАДО", ""],
-        ["ПРЕФИКСЫ СЧЕТОВ", ""],
-        ["БАНКИ", ""],
-        ["РУБРИКАТОР", ""],
-    ];
-    THIRD_PANEL_TAB_TEMPLATE = (tabName, icon, { classes, id, tabNameClasses } = { classes: "", id: "", tabNameClasses: "" }) => {
-        return /*html*/ `
-        <div class="third-panel__tab" ${id ? `id=${id.trim()}` : ""}>
-            ${icon ? `<span class="third-panel__tab-icon icon ads-icon in-panel ${classes}">${icon}</span>` : ""}
+  connectedCallback() {
+    this.render();
+    this.setup();
+  }
+  THRID_PANEL_TABS = [
+    ['объявления', ''],
+    ['вакансии', ''],
+    ['вакансии объед', ''],
+    ['соискатели', ''],
+    ['отклики', ''],
+    ['фио', ''],
+    ['Адреса', ''],
+    ['Компании', ''],
+    ['Учебные заведения', ''],
+    ['Сокр.Ю.Ф.', ''],
+    ['Альтернативные', ''],
+    ['Филиалы', ''],
+    ['Квалификации Специальности', ''],
+    ['ПОИСК', ''],
+    ['Телефонные коды', ''],
+    ['Администраторы', ''],
+    ['email рассылка', ''],
+    ['КАК БЫЛО КАК НАДО', ''],
+    ['ПРЕФИКСЫ СЧЕТОВ', ''],
+    ['БАНКИ', ''],
+    ['РУБРИКАТОР', ''],
+  ];
+  THIRD_PANEL_TAB_TEMPLATE = (
+    tabName,
+    icon,
+    { classes, id, tabNameClasses } = { classes: '', id: '', tabNameClasses: '' },
+  ) => {
+    return /*html*/ `
+        <div class="third-panel__tab" ${id ? `id=${id.trim()}` : ''}>
+            ${
+              icon
+                ? `<span class="third-panel__tab-icon icon ads-icon in-panel ${classes}">${icon}</span>`
+                : ''
+            }
             <p class="third-panel__tab-text ${tabNameClasses}">${tabName}</p>
         </div>
     `;
-    };
-    render() {
-        const STYLE = /*html*/ `
+  };
+  render() {
+    const TOP_PANEL = /*html*/ `
+    <div class="top-panel">
+      <div class="top-panel__login">
+          <span class="icon"></span>
+          <p>Войти</p>
+      </div>
+    </div>
+  `;
+    const STYLE = /*html*/ `
             <style>
                 .no-white{
                     white-space: nowrap !important;
@@ -152,6 +168,24 @@ class Navbar extends HTMLElement {
                 .third-panel__tab.more > p.third-panel__tab-text > span{
                     position: absolute;
                 }
+                .top-panel {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    background-color: #000000;
+                    color: #ffffff;
+                    padding: 10px;
+                  }
+                  
+                  .top-panel__login {
+                    cursor: pointer;
+                    padding: 5px 10px;
+                    transition: background-color 0.3s ease;
+                  }
+                  
+                  .top-panel__login:hover {
+                    background-color: #333333;
+                  }
                 @media (width <= 880px) {
                     p.third-panel__tab-text{
                         font-size: 18px;
@@ -260,8 +294,9 @@ class Navbar extends HTMLElement {
                 }
             </style>
         `;
-        this.innerHTML = /*html*/ `
+    this.innerHTML = /*html*/ `
         ${STYLE}
+        ${TOP_PANEL}
             <div class="mobile-control__menu-button">
                 <p>Меню</p>
                 <span class="icon burger"></span>
@@ -299,15 +334,17 @@ class Navbar extends HTMLElement {
                 </div>
                 <div class="third-panel journals panels__panel">
                     ${(() => {
-                        let markup = "";
-                        for (const tab of this.THRID_PANEL_TABS.slice(0, 8)) {
-                            if (tab[0] == "вакансии объед") {
-                                markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1], { tabNameClasses: "no-white" });
-                                continue;
-                            }
-                            markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1]);
+                      let markup = '';
+                      for (const tab of this.THRID_PANEL_TABS.slice(0, 8)) {
+                        if (tab[0] == 'вакансии объед') {
+                          markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1], {
+                            tabNameClasses: 'no-white',
+                          });
+                          continue;
                         }
-                        return markup;
+                        markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1]);
+                      }
+                      return markup;
                     })()}
                     <div class="third-panel__tab more">
                         <p class="third-panel__tab-text">
@@ -316,76 +353,78 @@ class Navbar extends HTMLElement {
                     </div>
                     <div class="other-tabs">
                         ${(() => {
-                            let markup = "";
-                            for (const [index, tab] of this.THRID_PANEL_TABS.slice(8).entries()) {
-                                if (index == 8) {
-                                    markup += `<div class="third-panel__tab more"></div>`;
-                                }
-                                markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1]);
+                          let markup = '';
+                          for (const [index, tab] of this.THRID_PANEL_TABS.slice(8).entries()) {
+                            if (index == 8) {
+                              markup += `<div class="third-panel__tab more"></div>`;
                             }
-                            return markup;
+                            markup += this.THIRD_PANEL_TAB_TEMPLATE(tab[0], tab[1]);
+                          }
+                          return markup;
                         })()}
                     </div>
                 </div>
             </div>
         `;
-    }
-    setup() {
-        this.querySelectorAll(".second-panel__tab").forEach(el => {
-            el.addEventListener("click", () => {
-                el.classList.add("tab_active");
-            });
-            document.addEventListener("click", event => {
-                const isAnotherTabClicked = Array.from(document.querySelectorAll(".second-panel__tab")).filter(el => {
-                    return el.contains(event.target);
-                }).length;
+  }
+  setup() {
+    this.querySelectorAll('.second-panel__tab').forEach((el) => {
+      el.addEventListener('click', () => {
+        el.classList.add('tab_active');
+      });
+      document.addEventListener('click', (event) => {
+        const isAnotherTabClicked = Array.from(
+          document.querySelectorAll('.second-panel__tab'),
+        ).filter((el) => {
+          return el.contains(event.target);
+        }).length;
 
-                if (!el.contains(event.target) && isAnotherTabClicked) {
-                    el.classList.remove("tab_active");
-                }
-            });
-        });
+        if (!el.contains(event.target) && isAnotherTabClicked) {
+          el.classList.remove('tab_active');
+        }
+      });
+    });
 
-        const moreTab = this.querySelector(".third-panel__tab.more");
-        moreTab.onclick = () => {
-            const otherTabs = this.querySelector(".other-tabs");
-            if (otherTabs.classList.contains("other-tabs_active")) {
-                otherTabs.classList.remove("other-tabs_active");
-                moreTab.querySelector("p").querySelector("span.icon").classList.add("reversed");
-            } else {
-                otherTabs.classList.add("other-tabs_active");
-                moreTab.querySelector("p").querySelector("span.icon").classList.remove("reversed");
-            }
-        };
+    const moreTab = this.querySelector('.third-panel__tab.more');
+    moreTab.onclick = () => {
+      const otherTabs = this.querySelector('.other-tabs');
+      if (otherTabs.classList.contains('other-tabs_active')) {
+        otherTabs.classList.remove('other-tabs_active');
+        moreTab.querySelector('p').querySelector('span.icon').classList.add('reversed');
+      } else {
+        otherTabs.classList.add('other-tabs_active');
+        moreTab.querySelector('p').querySelector('span.icon').classList.remove('reversed');
+      }
+    };
 
-        this.querySelectorAll(".third-panel__tab:not(.more)").forEach((el, index) => {
-            el.onclick = event => {
-                this.querySelectorAll(".third-panel__tab").forEach(el => {
-                    el.classList.remove("third-panel__tab_active");
-                });
-                el.classList.add("third-panel__tab_active");
-            };
-            if (index == 13) {
-                el.classList.add("third-panel__tab_active");
-            }
+    this.querySelectorAll('.third-panel__tab:not(.more)').forEach((el, index) => {
+      el.onclick = (event) => {
+        this.querySelectorAll('.third-panel__tab').forEach((el) => {
+          el.classList.remove('third-panel__tab_active');
         });
-        document.querySelector(".icon.burger").onclick = () => {
-            const menu = document.querySelector("#navbar");
-            if (menu.classList.contains("mobile-menu-wrapper_active")) {
-                menu.classList.remove("mobile-menu-wrapper_active");
-            } else {
-                menu.classList.add("mobile-menu-wrapper_active");
-            }
-        };
-        window.addEventListener("resize", () => {
-            const menu = document.querySelector("#navbar");
-            if (window.innerWidth <= 640) {
-                menu.classList.remove("mobile-menu-wrapper_active");
-            } else if (window.innerWidth >= 880) {
-                menu.classList.add("mobile-menu-wrapper_active");
-            }
-        });
-    }
+        el.classList.add('third-panel__tab_active');
+      };
+      if (index == 13) {
+        el.classList.add('third-panel__tab_active');
+      }
+    });
+    document.querySelector('.icon.burger').onclick = () => {
+      const menu = document.querySelector('#navbar');
+      if (menu.classList.contains('mobile-menu-wrapper_active')) {
+        menu.classList.remove('mobile-menu-wrapper_active');
+      } else {
+        menu.classList.add('mobile-menu-wrapper_active');
+      }
+    };
+    window.addEventListener('resize', () => {
+      const menu = document.querySelector('#navbar');
+      if (window.innerWidth <= 640) {
+        menu.classList.remove('mobile-menu-wrapper_active');
+      } else if (window.innerWidth >= 880) {
+        menu.classList.add('mobile-menu-wrapper_active');
+      }
+    });
+  }
 }
 
-customElements.define("navbar-elem", Navbar);
+customElements.define('navbar-elem', Navbar);

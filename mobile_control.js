@@ -1,37 +1,37 @@
 class MobileControlMini extends HTMLElement {
-    constructor() {
-        super();
-        this.active = 13;
-    }
-    connectedCallback() {
-        this.render();
-        this.setup();
-    }
-    THRID_PANEL_TABS = [
-        ["объявления", ""],
-        ["вакансии", ""],
-        ["вакансии объед", ""],
-        ["соискатели", ""],
-        ["отклики", ""],
-        ["фио", ""],
-        ["Адреса", ""],
-        ["Компании", ""],
-        ["Учебные заведения", ""],
-        ["Сокр.Ю.Ф.", ""],
-        ["Альтернативные", ""],
-        ["Филиалы", ""],
-        ["Квалификации Специальности", ""],
-        ["ПОИСК", ""],
-        ["Телефонные коды", ""],
-        ["Администраторы", ""],
-        ["email рассылка", ""],
-        ["КАК БЫЛО КАК НАДО", ""],
-        ["ПРЕФИКСЫ СЧЕТОВ", ""],
-        ["БАНКИ", ""],
-        ["РУБРИКАТОР", ""],
-    ];
-    TEMPLATE_TAB = (tabName, icon, { classes } = {}) => {
-        return /*html*/ `
+  constructor() {
+    super();
+    this.active = 13;
+  }
+  connectedCallback() {
+    this.render();
+    this.setup();
+  }
+  THRID_PANEL_TABS = [
+    ['объявления', ''],
+    ['вакансии', ''],
+    ['вакансии объед', ''],
+    ['соискатели', ''],
+    ['отклики', ''],
+    ['фио', ''],
+    ['Адреса', ''],
+    ['Компании', ''],
+    ['Учебные заведения', ''],
+    ['Сокр.Ю.Ф.', ''],
+    ['Альтернативные', ''],
+    ['Филиалы', ''],
+    ['Квалификации Специальности', ''],
+    ['ПОИСК', ''],
+    ['Телефонные коды', ''],
+    ['Администраторы', ''],
+    ['email рассылка', ''],
+    ['КАК БЫЛО КАК НАДО', ''],
+    ['ПРЕФИКСЫ СЧЕТОВ', ''],
+    ['БАНКИ', ''],
+    ['РУБРИКАТОР', ''],
+  ];
+  TEMPLATE_TAB = (tabName, icon, { classes } = {}) => {
+    return /*html*/ `
             <div class="mobile-control-wrapper__grid-nav ${classes}">
                 <div class="mobile-control-wrapper__icon-wrapper">
                     <span class="icon too-big-icon">${icon}</span>
@@ -41,9 +41,17 @@ class MobileControlMini extends HTMLElement {
                 </div>
             </div>
         `;
-    };
-    render() {
-        const STYLE = /*html*/ `<style>
+  };
+  render() {
+    const TOP_PANEL = /*html*/ `
+    <div class="top-panel">
+      <div class="top-panel__login">
+          <span class="icon"></span>
+          <p>Войти</p>
+      </div>
+    </div>
+  `;
+    const STYLE = /*html*/ `<style>
                 @media (width <= 640px) {
                     div.mobile-control-wrapper__grid-nav-wrapper {
                         padding: 10px;
@@ -257,9 +265,28 @@ class MobileControlMini extends HTMLElement {
                 .mobile-control-wrapper__row.second {
                     display: none;
                 }
+                .top-panel {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    background-color: #000000;
+                    color: #ffffff;
+                    padding: 10px;
+                  }
+                  
+                  .top-panel__login {
+                    cursor: pointer;
+                    padding: 5px 10px;
+                    transition: background-color 0.3s ease;
+                  }
+                  
+                  .top-panel__login:hover {
+                    background-color: #333333;
+                  }
             </style>`;
-        this.innerHTML = /*html*/ `
+    this.innerHTML = /*html*/ `
             ${STYLE}
+            ${TOP_PANEL}
             <div class="mobile-menu-mini-wrapper">
                 <div class="mobile-menu-mini">
                     <div class="mobile-control-wrapper__grid-first-panel">
@@ -268,13 +295,16 @@ class MobileControlMini extends HTMLElement {
                     </div>
                     <div class="mobile-control-wrapper__grid-nav-wrapper">
                         ${(() => {
-                            let markup = ``;
-                            for (const [index, tab] of this.THRID_PANEL_TABS.entries()) {
-                                markup += this.TEMPLATE_TAB(tab[0], tab[1], {
-                                    classes: index == this.active ? "mobile-control-wrapper__grid-nav_active" : "",
-                                });
-                            }
-                            return markup;
+                          let markup = ``;
+                          for (const [index, tab] of this.THRID_PANEL_TABS.entries()) {
+                            markup += this.TEMPLATE_TAB(tab[0], tab[1], {
+                              classes:
+                                index == this.active
+                                  ? 'mobile-control-wrapper__grid-nav_active'
+                                  : '',
+                            });
+                          }
+                          return markup;
                         })()}
                     </div>
                 </div>
@@ -332,90 +362,95 @@ class MobileControlMini extends HTMLElement {
                 </div>
             </div>
         `;
-    }
+  }
 
-    openMenu() {
-        const mobileMenu = document.querySelector(".mobile-menu-mini");
-        const mobileMenuWrapper = document.querySelector(".mobile-menu-mini-wrapper");
-        const mainContainer = document.querySelector(".main-container");
-        mobileMenuWrapper.classList.add("mobile-menu-mini-wrapper_active");
-        mobileMenu.style.setProperty("display", "flex");
-        mainContainer.style.setProperty("display", "none");
-    }
+  openMenu() {
+    const mobileMenu = document.querySelector('.mobile-menu-mini');
+    const mobileMenuWrapper = document.querySelector('.mobile-menu-mini-wrapper');
+    const mainContainer = document.querySelector('.main-container');
+    mobileMenuWrapper.classList.add('mobile-menu-mini-wrapper_active');
+    mobileMenu.style.setProperty('display', 'flex');
+    mainContainer.style.setProperty('display', 'none');
+  }
 
-    closeMenu() {
-        const mobileMenu = document.querySelector(".mobile-menu-mini");
-        const mobileMenuWrapper = document.querySelector(".mobile-menu-mini-wrapper");
-        const mainContainer = document.querySelector(".main-container");
-        mobileMenuWrapper.classList.remove("mobile-menu-mini-wrapper_active");
-        mobileMenu.style.setProperty("display", "none");
-        mainContainer.style.setProperty("display", "flex");
-    }
+  closeMenu() {
+    const mobileMenu = document.querySelector('.mobile-menu-mini');
+    const mobileMenuWrapper = document.querySelector('.mobile-menu-mini-wrapper');
+    const mainContainer = document.querySelector('.main-container');
+    mobileMenuWrapper.classList.remove('mobile-menu-mini-wrapper_active');
+    mobileMenu.style.setProperty('display', 'none');
+    mainContainer.style.setProperty('display', 'flex');
+  }
 
-    setActvie(index) {
-        this.active = index;
-    }
+  setActvie(index) {
+    this.active = index;
+  }
 
-    openSecondRow() {
-        const secondRow = document.querySelector(".mobile-control-wrapper__row.second");
-        secondRow.style.display = "flex";
-    }
-    closeSecondRow() {
-        const secondRow = document.querySelector(".mobile-control-wrapper__row.second");
-        secondRow.style.display = "none";
-    }
+  openSecondRow() {
+    const secondRow = document.querySelector('.mobile-control-wrapper__row.second');
+    secondRow.style.display = 'flex';
+  }
+  closeSecondRow() {
+    const secondRow = document.querySelector('.mobile-control-wrapper__row.second');
+    secondRow.style.display = 'none';
+  }
 
-    setup() {
-        document.querySelector(".mobile-control-wrapper__grid-control-wrapper.journals").onclick = () => {
-            this.openMenu();
-        };
+  setup() {
+    document.querySelector('.mobile-control-wrapper__grid-control-wrapper.journals').onclick =
+      () => {
+        this.openMenu();
+      };
 
-        document.querySelectorAll(".mobile-control-wrapper__grid-nav").forEach(nav => {
-            nav.onclick = () => {
-                this.closeMenu();
-            };
+    document.querySelectorAll('.mobile-control-wrapper__grid-nav').forEach((nav) => {
+      nav.onclick = () => {
+        this.closeMenu();
+      };
+    });
+
+    const controls = document.querySelectorAll(
+      '.mobile-control-wrapper__grid-control-wrapper:not(.more-button)',
+    );
+
+    const tabs = document.querySelectorAll('.mobile-control-wrapper__grid-nav');
+    tabs.forEach((tab) => {
+      tab.onclick = () => {
+        tabs.forEach((tab) => {
+          tab.classList.remove('mobile-control-wrapper__grid-nav_active');
         });
+        tab.classList.add('mobile-control-wrapper__grid-nav_active');
+        this.closeMenu();
+      };
+    });
 
-        const controls = document.querySelectorAll(".mobile-control-wrapper__grid-control-wrapper:not(.more-button)");
-
-        const tabs = document.querySelectorAll(".mobile-control-wrapper__grid-nav");
-        tabs.forEach(tab => {
-            tab.onclick = () => {
-                tabs.forEach(tab => {
-                    tab.classList.remove("mobile-control-wrapper__grid-nav_active");
-                });
-                tab.classList.add("mobile-control-wrapper__grid-nav_active");
-                this.closeMenu();
-            };
+    controls.forEach((control) => {
+      control.addEventListener('click', () => {
+        controls.forEach((control) => {
+          control.classList.remove('mobile-control-wrapper__grid-control-wrapper_active');
         });
+        control.classList.add('mobile-control-wrapper__grid-control-wrapper_active');
+      });
+    });
 
-        controls.forEach(control => {
-            control.addEventListener("click", () => {
-                controls.forEach(control => {
-                    control.classList.remove("mobile-control-wrapper__grid-control-wrapper_active");
-                });
-                control.classList.add("mobile-control-wrapper__grid-control-wrapper_active");
-            });
-        });
-
-        const goBack = document.querySelector(".mobile-cocntrol-wrapper__go-back");
-        if (goBack) {
-            goBack.onclick = () => {
-                this.openMenu();
-            };
-        }
-
-        const more = document.querySelector(".mobile-control-wrapper__grid-control-wrapper.more-button");
-        more.onclick = () => {
-            if (more.querySelector("p").textContent == "Еще") {
-                more.querySelector("p").textContent = "Меньше";
-                this.openSecondRow();
-            } else {
-                more.querySelector("p").textContent = "Еще";
-                this.closeSecondRow();
-            }
-        };
+    const goBack = document.querySelector('.mobile-cocntrol-wrapper__go-back');
+    if (goBack) {
+      goBack.onclick = () => {
+        this.openMenu();
+      };
     }
+
+    const more = document.querySelector(
+      '.mobile-control-wrapper__grid-control-wrapper.more-button',
+    );
+    more.onclick = () => {
+      if (more.querySelector('p').textContent == 'Еще') {
+        more.querySelector('p').textContent = 'Меньше';
+        this.openSecondRow();
+      } else {
+        more.querySelector('p').textContent = 'Еще';
+        this.closeSecondRow();
+      }
+    };
+  }
 }
 
-customElements.define("mobile-ui", MobileControlMini);
+customElements.define('mobile-ui', MobileControlMini);
