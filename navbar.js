@@ -53,6 +53,9 @@ class Navbar extends HTMLElement {
   `;
     const STYLE = /*html*/ `
             <style>
+                .top-panel-mobile {
+                    display: none;
+                }
                 .no-white{
                     white-space: nowrap !important;
                 }
@@ -181,7 +184,6 @@ class Navbar extends HTMLElement {
                     transition: background-color 0.3s ease;
                     display: flex;
                     align-items: center;
-                    gap: 10px
                   }
                   .top-panel__login > span {
                     display: block;

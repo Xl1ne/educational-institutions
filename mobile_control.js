@@ -44,7 +44,7 @@ class MobileControlMini extends HTMLElement {
   };
   render() {
     const TOP_PANEL = /*html*/ `
-    <div class="top-panel">
+    <div class="top-panel-mobile">
       <div class="top-panel__login">
           <span class="icon"></span>
           <p>Войти</p>
@@ -266,19 +266,21 @@ class MobileControlMini extends HTMLElement {
                     display: none;
                 }
                 .top-panel {
+                    display: none;
+                }
+                .top-panel-mobile {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     background-color: #414E51;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 25px;
                   }
                   .top-panel__login {
                     cursor: pointer;
                     transition: background-color 0.3s ease;
                     display: flex;
                     align-items: center;
-                    gap: 10px
                   }
                   .top-panel__login > span {
                     display: block;
