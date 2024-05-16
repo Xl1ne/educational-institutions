@@ -229,6 +229,28 @@ class MobileControlMini extends HTMLElement {
                     .top-panel {
                         display: none;
                     }
+                    .top-panel-mobile {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #414E51;
+                        color: #ffffff;
+                        padding: 10px 25px;
+                    }
+                    .top-panel__login {
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .top-panel__login > span {
+                        display: block;
+                        color: inherit;
+                        font-size: 30px;
+                        font-weight: 400;
+                        padding-left: 4px;
+                        padding-right: 5px;
+                    }
                 }
 
                 .mobile-control-wrapper__grid-nav_active {
@@ -269,28 +291,6 @@ class MobileControlMini extends HTMLElement {
                 .mobile-control-wrapper__row.second {
                     display: none;
                 }
-                .top-panel-mobile {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #414E51;
-                    color: #ffffff;
-                    padding: 10px 25px;
-                  }
-                  .top-panel__login {
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                  }
-                  .top-panel__login > span {
-                    display: block;
-                    color: inherit;
-                    font-size: 30px;
-                    font-weight: 400;
-                    padding-left: 4px;
-                    padding-right: 5px;
-                  }
             </style>`;
     this.innerHTML = /*html*/ `
             ${STYLE}

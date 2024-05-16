@@ -54,7 +54,7 @@ class Navbar extends HTMLElement {
     const STYLE = /*html*/ `
             <style>
                 .top-panel-mobile {
-                    display: none !important;
+                    display: none;
                 }
                 .no-white{
                     white-space: nowrap !important;
