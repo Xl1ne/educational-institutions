@@ -226,7 +226,11 @@ class MobileControlMini extends HTMLElement {
                     .mobile-control.control {
                         display: none;
                     }
+                    .top-panel {
+                        display: none;
+                    }
                 }
+
                 .mobile-control-wrapper__grid-nav_active {
                     color: var(--yellow);
                 }
@@ -263,9 +267,6 @@ class MobileControlMini extends HTMLElement {
                 }
 
                 .mobile-control-wrapper__row.second {
-                    display: none;
-                }
-                .top-panel {
                     display: none;
                 }
                 .top-panel-mobile {
