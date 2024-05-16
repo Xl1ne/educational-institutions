@@ -172,20 +172,26 @@ class Navbar extends HTMLElement {
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
-                    background-color: #000000;
+                    background-color: #414E51;
                     color: #ffffff;
-                    padding: 10px;
+                    padding: 10px 25px;
                   }
-                  
                   .top-panel__login {
                     cursor: pointer;
-                    padding: 5px 10px;
                     transition: background-color 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px
+                  }
+                  .top-panel__login > span {
+                    display: block;
+                    color: inherit;
+                    font-size: 30px;
+                    font-weight: 400;
+                    padding-left: 4px;
+                    padding-right: 5px;
                   }
                   
-                  .top-panel__login:hover {
-                    background-color: #333333;
-                  }
                 @media (width <= 880px) {
                     p.third-panel__tab-text{
                         font-size: 18px;
